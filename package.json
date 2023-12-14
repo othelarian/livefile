@@ -1,0 +1,30 @@
+{
+  "name": "livefile",
+  "version": "0.1.0",
+  "description": "a cakefile like for livescript",
+  "main": "index.js",
+  "bin": {
+    "live": "node bin/live.js"
+  },
+  "scripts": {
+    "dev": "lsc src/live",
+    "compile": "lsc -cb -o bin src/live",
+    "try": "node bin/live.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/othelarian/livefile.git"
+  },
+  "author": "othelarian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/othelarian/livefile/issues"
+  },
+  "homepage": "https://github.com/othelarian/livefile#readme",
+  "dependencies": {
+    "bach": "^2.0.1",
+    "chokidar": "^3.5.3",
+    "fs-extra": "^11.2.0",
+    "livescript": "^1.6.0"
+  }
+}
