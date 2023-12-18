@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "lsc src/live",
-    "compile": "lsc src/sheb",
+    "compile": "lsc -d src/sheb",
     "try": "node bin/live.js"
   },
   "repository": {
@@ -22,10 +22,7 @@
   },
   "homepage": "https://github.com/othelarian/livefile#readme",
   "dependencies": {
-    "bach": "^2.0.1",
-    "chokidar": "^3.5.3",
-    "fs-extra": "^11.2.0",
     "livescript": "^1.6.0",
-    "prelude-ls": "^1.2.1"
+    "optionator": "^0.9.3"
   }
 }

@@ -1,11 +1,11 @@
 require! {
   livescript: ls
   'fs-extra': fse
-  'prelude-ls': { flip }
+  #'prelude-ls': prl
 }
 
 a =
-  fse.readFileSync \src/live.ls \utf-8
+  fse.readFileSync \lib/live.ls \utf-8
   |> (flip ls.compile) { bare: on, header: off }
   |> ('#!/usr/bin/env node\n\n' +)
 

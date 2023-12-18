@@ -1,6 +1,9 @@
 
-# TODO: try the already imported modules
+option \name \n \Boolean {} \desc
 
-#
-
-console.log 'this is the Livefile'
+task 'try', '', (_) ->
+  #
+  # TODO
+  #
+  console.log 'let is try!'
+  #
