@@ -1,12 +1,12 @@
 require! {
+  fs
   livescript: ls
-  'fs-extra': fse
-  #'prelude-ls': prl
+  'prelude-ls': pls
 }
 
 a =
-  fse.readFileSync \lib/live.ls \utf-8
-  |> (flip ls.compile) { bare: on, header: off }
+  fs.readFileSync \src/live.ls \utf-8
+  |> (pls.flip ls.compile) { bare: on, header: off }
   |> ('#!/usr/bin/env node\n\n' +)
 
-fse.writeFileSync 'bin/live.js', a
+fs.writeFileSync 'bin/live.js', a

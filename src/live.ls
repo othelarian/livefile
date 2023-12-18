@@ -5,7 +5,7 @@ require! {
 }
 
 options = [{ option: \help, alias: \h, type: \Boolean }]
-option = (name, short, tipe, params, desc) ->
+option = (name, short, tp, params, desc) ->
   #
   # TODO
   #
