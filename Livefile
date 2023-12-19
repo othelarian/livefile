@@ -1,9 +1,11 @@
 
-option \name \n \Boolean {} \desc
+option \name \n \Boolean \desc
+option \project \p \Int ''
 
 task 'try', '', (_) ->
-  #
-  # TODO
-  #
   console.log 'let is try!'
-  #
+
+task \plop, 'this is a desc', (_) -> console.log \plop
+
+task 'thisisalongtaskname', 'the long task name, with a long description', (opts) ->
+  console.log opts

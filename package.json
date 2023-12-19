@@ -1,6 +1,6 @@
 {
   "name": "livefile",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "a cakefile like for livescript",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "lsc src/live",
     "compile": "lsc src/sheb",
-    "try": "node bin/live.js"
+    "try": "node bin/live.js",
+    "repl": "lsc -d"
   },
   "repository": {
     "type": "git",

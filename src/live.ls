@@ -1,16 +1,13 @@
 require! {
-  fs
+  fs,
   livescript: ls
   optionator
+  'prelude-ls': { List, Obj, Str }
 }
 
-options = [{ option: \help, alias: \h, type: \Boolean }]
-option = (name, short, tp, params, desc) ->
-  #
-  # TODO
-  #
-  console.log 'add an option (not ready)'
-  #
+options = [{ option: \help, alias: \h, type: \Boolean, description: '' }] 
+option = (option, alias, type, description) ->
+  options.push { option, alias, type, description }
 
 tasks = {}
 task = (name, desc, fn) -> tasks[name] = { desc, fn }
@@ -20,50 +17,27 @@ global.task = task
 
 try
   ls.run fs.readFileSync \Livefile \utf-8
-  #args = process.argv.slice 2
-  #
-  op = optionator { prepend: 'Usage: live [options]', options }
-  #
-  #
-  #opts = optionator.parseArgv args
-  #
-  opts = op.parseArgv process.argv
-  #
-  if opts.help
-    console.log op.generateHelp!
-  else
-    #
-    console.log 'run'
-    #
-    console.log process.argv
-    #
-    #console.log "######## args: #{args}"
-    #
-    console.log opts
-    #
+  prepend = 'Usage: live [options]\n\nOptions:'
+  mlgth = Obj.keys tasks |> List.maximum-by (.length) |> (.length)
+  filler = (str) -> Str.repeat (mlgth - str.length), ' '
+  line = (acc, elt) -> "#{acc}#{elt[0]}#{filler elt[0]} #{elt[1].desc}\n"
+  append =
+    Obj.obj-to-pairs tasks
+    |> List.fold line, 'Commands:\n\n'
+  op = optionator { append, options, prepend }
+  # the if/else below is for testing the lib itself
+  args =
+    if (new RegExp \node.exe .test process.argv[0]) then process.argv.slice 1
+    else process.argv
+  opts = op.parseArgv args
+  switch
+    | opts.help          => console.log op.generateHelp!
+    | opts._.length is 0 => console.log 'ERROR: no task to run!'
+    | opts._.length > 1  => console.log 'ERROR: too many tasks selected!'
+    | opts._[0] not in Obj.keys tasks
+      console.log "ERROR: task does not exist (#{opts._[0]})!"
+    | _                  => tasks[opts._[0]].fn opts
 catch e
   switch e.code
   | \ENOENT   => console.log 'There is no Livefile at this package root'
   | otherwise => console.log e
-
-
-/* register
-
-# Load and run a CoffeeScript file for Node, stripping any `BOM`s.
-loadFile = (module, filename) ->
-  options = module.options or getRootModule(module).options or {}
-
-  # Currently `CoffeeScript.compile` caches all source maps if present. They
-  # are available in `getSourceMap` retrieved by `filename`.
-  if cacheSourceMaps or nodeSourceMapsSupportEnabled
-    options.inlineMap = true
-  js = CoffeeScript._compileFile filename, options
-
-  module._compile js, filename
-
-# If the installed version of Node supports `require.extensions`, register
-# CoffeeScript as an extension.
-if require.extensions
-  for ext in CoffeeScript.FILE_EXTENSIONS
-    require.extensions[ext] = loadFile
-*/
